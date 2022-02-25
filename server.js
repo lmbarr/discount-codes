@@ -11,10 +11,6 @@ const cacheDatabase = {};
 const discountCodes = [];
 let counter = 0;
 
-Date.prototype.addHours= function(h) {
-  this.setHours(this.getHours()+h);
-  return this;
-}
 
 // create a GET route
 app.get('/serial_number/:serialNumber', (req, res) => {
@@ -26,16 +22,15 @@ app.get('/serial_number/:serialNumber', (req, res) => {
 });
 
 const getDiscountCode = serialNumber => {
-  console.log('getDiscountCode');
-  if(!cacheDatabase[serialNumber]) return 'Invalid serial number'
-  console.log(cacheDatabase[serialNumber]);
+  if(!cacheDatabase[serialNumber]) return 'Invalid serial number';
+
   if(Object.keys(cacheDatabase[serialNumber]).length === 0) {
     const discountCode = discountCodes[counter % discountCodes.length];
     counter += 1;
     cacheDatabase[serialNumber] = { discountCode, expirationDate: Date.now() + EXPIRATION_TIME * 3600 * 1000 }
     return discountCode;
   }
-  console.log(Date.now())
+  
   if(cacheDatabase[serialNumber].expirationDate > Date.now()) {
     return 'Serial Number Redeemed'
   }
