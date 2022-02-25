@@ -1,7 +1,5 @@
 # Discount Codes Web App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 ## Setting up client
 
 In the project client directory, you can run:
